@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "OneWireExt.h"
 
 // owTempToStr()
@@ -19,4 +20,10 @@ void owTempToStr(char *s, short val) {
 	// but 62 is sufficient for our needs and avoids floating point operations.
 	// Add 50 to get proper rounding
 	sprintf(s, "%s%d.%d", sign, val >> 4, ((val & 0xf) * 62 + 50) / 100);
+}
+
+void owAddressToStr(char *str, byte *owAddress) {
+	for (int i = 0; i < 6; i++) {
+		sprintf(str + i, "%X", owAddress[OW_ADDRESS_LEN - 2 - i]);
+	}
 }
